@@ -14,3 +14,5 @@ const createUserService = async (userData: IUserRequest): Promise<User> => {
 
   return user;
 };
+
+export { createUserService };
