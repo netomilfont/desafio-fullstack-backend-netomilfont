@@ -4,6 +4,7 @@ import {
   PrimaryGeneratedColumn,
   BeforeUpdate,
   BeforeInsert,
+  CreateDateColumn,
 } from "typeorm";
 import { hashSync } from "bcryptjs";
 
@@ -23,6 +24,9 @@ class User {
 
   @Column({ length: 50 })
   password: string;
+
+  @CreateDateColumn()
+  createdAt: Date;
 
   @BeforeUpdate()
   @BeforeInsert()
