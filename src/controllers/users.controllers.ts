@@ -18,4 +18,21 @@ const listUserController = async (req: Request, res: Response) => {
   return res.status(200).json(user);
 };
 
-export { createUserController };
+const updateUserController = async (req: Request, res: Response) => {
+  const newUserData = req.body;
+  const foundUser = res.locals.foundUser;
+
+  const updatedUser = await updateUserService(
+    newUserData,
+    foundUser,
+    req.params.id
+  );
+  return res.status(200).json(updatedUser);
+};
+
+export {
+  createUserController,
+  listUsersController,
+  listUserController,
+  updateUserController,
+};
