@@ -23,15 +23,14 @@ const listUsersController = async (req: Request, res: Response) => {
 
 const listUserController = async (req: Request, res: Response) => {
   const userId: string = req.params.id;
-  const user = await listUserService(req.user.id, userId);
+  const user = await listUserService(userId);
   return res.status(200).json(user);
 };
 
 const updateUserController = async (req: Request, res: Response) => {
   const userData: IUserUpdateRequest = req.body;
-  const userDataId: string = req.user.id;
   const userId: string = req.params.id;
-  const updatedUser = await updateUserService(userData, userId, userDataId);
+  const updatedUser = await updateUserService(userData, userId);
   return res.status(200).json(updatedUser);
 };
 

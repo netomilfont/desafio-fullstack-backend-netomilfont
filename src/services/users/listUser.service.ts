@@ -1,7 +1,8 @@
 import AppDataSource from "../../data-source";
 import { User } from "../../entities/user.entity";
+import { AppError } from "../../errors/appErrors";
 
-const listUserService = async (userId: string, userIdListed: string) => {
+const listUserService = async (userIdListed: string) => {
   const userRepository = AppDataSource.getRepository(User);
 
   const user = userRepository.findOneBy({
@@ -9,12 +10,8 @@ const listUserService = async (userId: string, userIdListed: string) => {
   });
 
   if (!user) {
-    throw new Error("User not found!");
+    throw new AppError("User not found!", 404);
   }
-
-  //   if (userId !== userIdListed) {
-  //     throw new Error("You don't have permition");
-  //   }
 
   return user;
 };

@@ -3,6 +3,7 @@ import { User } from "../../entities/user.entity";
 import { IUserLogin } from "../../interfaces/users.interface";
 import { compare } from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { AppError } from "../../errors/appErrors";
 import "dotenv/config";
 
 const createSessionService = async ({
@@ -16,13 +17,13 @@ const createSessionService = async ({
   });
 
   if (!user) {
-    throw new Error("Invalid user or password!");
+    throw new AppError("Invalid user or password!", 401);
   }
 
   const passwordMatch = await compare(password, user.password);
 
   if (!passwordMatch) {
-    throw new Error("Invalid user or password!");
+    throw new AppError("Invalid user or password!", 401);
   }
 
   const token = jwt.sign({}, process.env.SECRET_KEY as string, {

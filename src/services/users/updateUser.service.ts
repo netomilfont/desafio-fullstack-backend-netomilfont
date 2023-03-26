@@ -1,11 +1,11 @@
 import AppDataSource from "../../data-source";
 import { User } from "../../entities/user.entity";
+import { AppError } from "../../errors/appErrors";
 import { IUserUpdateRequest } from "../../interfaces/users.interface";
 
 const updateUserService = async (
   userData: IUserUpdateRequest,
-  userId: string,
-  userDataId: string
+  userId: string
 ): Promise<User> => {
   const userRepository = AppDataSource.getRepository(User);
 
@@ -13,17 +13,9 @@ const updateUserService = async (
     id: userId,
   });
 
-  const userLogged = await userRepository.findOneBy({
-    id: userDataId,
-  });
-
   if (!user) {
-    throw new Error("User not found!");
+    throw new AppError("User not found!", 404);
   }
-
-  //   if (userId !== userDataId) {
-  //     throw new Error("You don't have permition");
-  //   }
 
   const updatedUser = userRepository.create({
     ...user,
