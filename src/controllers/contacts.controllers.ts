@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
 import { IContactRequest } from "../interfaces/contacts.interface";
 import createContactService from "../services/contacts/createContact.service";
+import listContactUserService from "../services/contacts/listContactUser.service";
 
 const createContactController = async (req: Request, res: Response) => {
   const contactData: IContactRequest = req.body;
@@ -9,6 +10,10 @@ const createContactController = async (req: Request, res: Response) => {
   return res.status(201).json(createdContact);
 };
 
-const listContactsUserController = async (req: Request, res: Response) => {};
+const listContactsUserController = async (req: Request, res: Response) => {
+  const userId: string = req.user.id;
+  const contacts = await listContactUserService(userId);
+  return res.status(200).json(contacts);
+};
 
 export { createContactController, listContactsUserController };
