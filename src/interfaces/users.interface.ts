@@ -9,3 +9,8 @@ export interface IUserResponse extends IUserRequest {
   id: string;
   createdAt: Date;
 }
+
+export interface IUserLogin {
+  email: string;
+  password: string;
+}
