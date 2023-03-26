@@ -9,4 +9,6 @@ const createContactController = async (req: Request, res: Response) => {
   return res.status(201).json(createdContact);
 };
 
-export { createContactController };
+const listContactsUserController = async (req: Request, res: Response) => {};
+
+export { createContactController, listContactsUserController };
