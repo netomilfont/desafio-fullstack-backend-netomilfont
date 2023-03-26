@@ -1,4 +1,4 @@
-import { AppDataSource } from "../../data-source";
+import AppDataSource from "../../data-source";
 import { User } from "../../entities/user.entity";
 import { IUserRequest } from "../../interfaces/users.interface";
 
@@ -8,6 +8,10 @@ const createUserService = async (userData: IUserRequest): Promise<User> => {
   const findUser = await userRepository.findOneBy({
     email: userData.email,
   });
+
+  if (findUser) {
+    throw new Error("User already exists!");
+  }
 
   const user = userRepository.create(userData);
   await userRepository.save(user);

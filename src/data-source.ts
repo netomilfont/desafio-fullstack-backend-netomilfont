@@ -3,6 +3,7 @@ import "dotenv/config";
 import { User } from "./entities/user.entity";
 import { createUser1679778430602 } from "./migrations/1679778430602-createUser";
 import { createColumnCreatedAt1679779505675 } from "./migrations/1679779505675-createColumnCreatedAt";
+import { createColumnCreatedAt1679789035842 } from "./migrations/1679789035842-createColumnCreatedAt";
 
 const AppDataSource = new DataSource({
   type: "postgres",
@@ -14,15 +15,11 @@ const AppDataSource = new DataSource({
   synchronize: false,
   logging: true,
   entities: [User],
-  migrations: [createUser1679778430602, createColumnCreatedAt1679779505675],
+  migrations: [
+    createUser1679778430602,
+    createColumnCreatedAt1679779505675,
+    createColumnCreatedAt1679789035842,
+  ],
 });
 
-AppDataSource.initialize()
-  .then(() => {
-    console.log("Database connected!");
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-
-export { AppDataSource };
+export default AppDataSource;

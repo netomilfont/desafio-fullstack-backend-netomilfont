@@ -22,7 +22,7 @@ class User {
   @Column()
   telefone: string;
 
-  @Column({ length: 50 })
+  @Column({})
   password: string;
 
   @CreateDateColumn()
