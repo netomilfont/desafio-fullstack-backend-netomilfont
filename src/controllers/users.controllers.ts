@@ -9,10 +9,10 @@ const createUserController = async (req: Request, res: Response) => {
   return res.status(201).json(newUser);
 };
 
-// const listUsersController = async (req: Request, res: Response) => {
-//   const users = await listUsersService();
-//   return res.status(200).json(users);
-// };
+const listUsersController = async (req: Request, res: Response) => {
+  const users = await listUsersService();
+  return res.status(200).json(users);
+};
 
 // const listUserController = async (req: Request, res: Response) => {
 //   const user = await listUserService(res.locals.foundUser, req.user.id);
