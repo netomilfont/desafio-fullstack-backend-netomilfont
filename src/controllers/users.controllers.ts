@@ -39,4 +39,9 @@ const deleteUserController = async (req: Request, res: Response) => {
   return res.status(204).json(deleteUser);
 };
 
-export { createUserController, listUsersController, updateUserController };
+export {
+  createUserController,
+  listUsersController,
+  updateUserController,
+  deleteUserController,
+};
