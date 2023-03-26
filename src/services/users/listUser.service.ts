@@ -12,9 +12,9 @@ const listUserService = async (userId: string, userIdListed: string) => {
     throw new Error("User not found!");
   }
 
-  if (userId !== userIdListed) {
-    throw new Error("You don't have permition");
-  }
+  //   if (userId !== userIdListed) {
+  //     throw new Error("You don't have permition");
+  //   }
 
   return user;
 };

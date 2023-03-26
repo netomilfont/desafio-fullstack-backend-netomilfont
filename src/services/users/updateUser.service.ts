@@ -21,9 +21,9 @@ const updateUserService = async (
     throw new Error("User not found!");
   }
 
-  if (userId !== userDataId) {
-    throw new Error("You don't have permition");
-  }
+  //   if (userId !== userDataId) {
+  //     throw new Error("You don't have permition");
+  //   }
 
   const updatedUser = userRepository.create({
     ...user,
