@@ -1,6 +1,11 @@
 import { Request, Response } from "express";
-import { IUserRequest } from "../interfaces/users.interface";
+import {
+  IUserRequest,
+  IUserUpdateRequest,
+} from "../interfaces/users.interface";
 import { createUserService } from "../services/users/createUser.service";
+import listUsersService from "../services/users/listUsers.service";
+import updateUserService from "../services/users/updateUser.service";
 
 const createUserController = async (req: Request, res: Response) => {
   console.log("oi");
@@ -19,13 +24,13 @@ const listUsersController = async (req: Request, res: Response) => {
 //   return res.status(200).json(user);
 // };
 
-// const updateUserController = async (req: Request, res: Response) => {
-//   const userData = req.body;
-//   const userDataId: string = req.user.id;
-//   const userId: string = req.params.id;
-//   const updatedUser = await updateUserService(userData, userId, userDataId);
-//   return res.status(200).json(updatedUser);
-// };
+const updateUserController = async (req: Request, res: Response) => {
+  const userData: IUserUpdateRequest = req.body;
+  const userDataId: string = req.user.id;
+  const userId: string = req.params.id;
+  const updatedUser = await updateUserService(userData, userId, userDataId);
+  return res.status(200).json(updatedUser);
+};
 
 // const deleteUserController = async (req: Request, res: Response) => {
 //   const userId: string = req.params.id;
@@ -33,4 +38,4 @@ const listUsersController = async (req: Request, res: Response) => {
 //   return res.status(204).json(deleteUser);
 // };
 
-export { createUserController };
+export { createUserController, listUsersController, updateUserController };
