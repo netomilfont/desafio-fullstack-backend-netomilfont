@@ -40,9 +40,12 @@ const updateContactUserController = async (req: Request, res: Response) => {
   return res.status(200).json(updatedContact);
 };
 
+const deleteContactUserController = async (req: Request, res: Response) => {};
+
 export {
   createContactController,
   listContactsUserController,
   listContactController,
   updateContactUserController,
+  deleteContactUserController,
 };
