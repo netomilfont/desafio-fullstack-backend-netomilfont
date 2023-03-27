@@ -11,5 +11,6 @@ const contactRoutes = Router();
 contactRoutes.post("", ensureAuthMiddleware, createContactController);
 contactRoutes.get("/user", ensureAuthMiddleware, listContactsUserController);
 contactRoutes.get("/:id", ensureAuthMiddleware, listContactController);
+contactRoutes.patch("/:id", ensureAuthMiddleware);
 
 export default contactRoutes;

@@ -24,6 +24,18 @@ const listContactController = async (req: Request, res: Response) => {
   return res.status(200).json(contact);
 };
 
+const updateContactUserController = async (req: Request, res: Response) => {
+  const userId: string = req.user.id;
+  const contactId: string = req.params.id;
+  const contactData = req.body;
+  const updatedContact = await updateContactService(
+    userId,
+    contactId,
+    contactData
+  );
+  return res.status(200).json(updatedContact);
+};
+
 export {
   createContactController,
   listContactsUserController,
