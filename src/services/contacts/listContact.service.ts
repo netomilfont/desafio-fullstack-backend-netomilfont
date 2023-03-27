@@ -2,11 +2,13 @@ import AppDataSource from "../../data-source";
 import { Contact } from "../../entities/contact.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/appErrors";
+import { IContactResponse } from "../../interfaces/contacts.interface";
+import { contactResponseSerializer } from "../../schemas/contacts.schemas";
 
 const listContactService = async (
   userId: string,
   contactId: string
-): Promise<Contact> => {
+): Promise<IContactResponse> => {
   const userRepository = AppDataSource.getRepository(User);
   const contactRepository = AppDataSource.getRepository(Contact);
 
@@ -31,7 +33,11 @@ const listContactService = async (
     throw new AppError("You don't have permission to see this contact", 403);
   }
 
-  return contact;
+  const contactReturn = await contactResponseSerializer.validate(contact, {
+    stripUnknown: true,
+  });
+
+  return contactReturn;
 };
 
 export default listContactService;

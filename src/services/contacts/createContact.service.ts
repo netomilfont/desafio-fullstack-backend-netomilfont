@@ -1,12 +1,16 @@
 import AppDataSource from "../../data-source";
 import { Contact } from "../../entities/contact.entity";
 import { User } from "../../entities/user.entity";
-import { IContactRequest } from "../../interfaces/contacts.interface";
+import {
+  IContactRequest,
+  IContactResponse,
+} from "../../interfaces/contacts.interface";
+import { contactResponseSerializer } from "../../schemas/contacts.schemas";
 
 const createContactService = async (
   contactData: IContactRequest,
   userId: string
-): Promise<Contact> => {
+): Promise<IContactResponse> => {
   const userRepository = AppDataSource.getRepository(User);
   const contactRepository = AppDataSource.getRepository(Contact);
 
@@ -21,7 +25,11 @@ const createContactService = async (
 
   await contactRepository.save(contact);
 
-  return contact;
+  const returnContact = await contactResponseSerializer.validate(contact, {
+    stripUnknown: true,
+  });
+
+  return returnContact;
 };
 
 export default createContactService;

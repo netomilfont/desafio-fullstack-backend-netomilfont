@@ -5,8 +5,11 @@ export interface IUserRequest {
   telefone: string;
 }
 
-export interface IUserResponse extends IUserRequest {
+export interface IUserResponse {
   id: string;
+  name: string;
+  email: string;
+  telefone: string;
   createdAt: Date;
 }
 

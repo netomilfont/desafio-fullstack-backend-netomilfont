@@ -2,13 +2,17 @@ import AppDataSource from "../../data-source";
 import { Contact } from "../../entities/contact.entity";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/appErrors";
-import { IContactUpdateRequest } from "../../interfaces/contacts.interface";
+import {
+  IContactResponse,
+  IContactUpdateRequest,
+} from "../../interfaces/contacts.interface";
+import { contactResponseSerializer } from "../../schemas/contacts.schemas";
 
 const updateContactUserService = async (
   userId: string,
   contactId: string,
   contactData: IContactUpdateRequest
-) => {
+): Promise<IContactResponse> => {
   const userRepository = AppDataSource.getRepository(User);
   const contactRepository = AppDataSource.getRepository(Contact);
 
@@ -40,7 +44,14 @@ const updateContactUserService = async (
 
   await contactRepository.save(updatedContact);
 
-  return updatedContact;
+  const returnContact = await contactResponseSerializer.validate(
+    updatedContact,
+    {
+      stripUnknown: true,
+    }
+  );
+
+  return returnContact;
 };
 
 export default updateContactUserService;
