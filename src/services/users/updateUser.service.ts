@@ -1,12 +1,16 @@
 import AppDataSource from "../../data-source";
 import { User } from "../../entities/user.entity";
 import { AppError } from "../../errors/appErrors";
-import { IUserUpdateRequest } from "../../interfaces/users.interface";
+import {
+  IUserResponse,
+  IUserUpdateRequest,
+} from "../../interfaces/users.interface";
+import { userWithoutPasswordSerializer } from "../../schemas/users.schemas";
 
 const updateUserService = async (
   userData: IUserUpdateRequest,
   userId: string
-): Promise<User> => {
+): Promise<IUserResponse> => {
   const userRepository = AppDataSource.getRepository(User);
 
   const user = await userRepository.findOneBy({
@@ -24,7 +28,11 @@ const updateUserService = async (
 
   await userRepository.save(updatedUser);
 
-  return updatedUser;
+  const userReturn = await userWithoutPasswordSerializer.validate(updatedUser, {
+    stripUnknown: true,
+  });
+
+  return userReturn;
 };
 
 export default updateUserService;

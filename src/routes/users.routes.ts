@@ -7,11 +7,17 @@ import {
   updateUserController,
 } from "../controllers/users.controllers";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
+import ensureDataIsValidMiddleware from "../middlewares/ensureDataisValid.middleware";
 import ensureUserisOwnerAccount from "../middlewares/ensureIsOwnerAccount.middleware";
+import { userSerializer, userUpdateSerializer } from "../schemas/users.schemas";
 
 const userRoutes = Router();
 
-userRoutes.post("", createUserController);
+userRoutes.post(
+  "",
+  ensureDataIsValidMiddleware(userSerializer),
+  createUserController
+);
 userRoutes.get("", ensureAuthMiddleware, listUsersController);
 userRoutes.get(
   "/:id",
@@ -22,6 +28,7 @@ userRoutes.get(
 userRoutes.patch(
   "/:id",
   ensureAuthMiddleware,
+  ensureDataIsValidMiddleware(userUpdateSerializer),
   ensureUserisOwnerAccount,
   updateUserController
 );
