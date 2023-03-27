@@ -1,8 +1,12 @@
 import { Request, Response } from "express";
-import { IContactRequest } from "../interfaces/contacts.interface";
+import {
+  IContactRequest,
+  IContactUpdateRequest,
+} from "../interfaces/contacts.interface";
 import createContactService from "../services/contacts/createContact.service";
 import listContactService from "../services/contacts/listContact.service";
 import listContactUserService from "../services/contacts/listContactUser.service";
+import updateContactUserService from "../services/contacts/updateContactUser.service";
 
 const createContactController = async (req: Request, res: Response) => {
   const contactData: IContactRequest = req.body;
@@ -27,8 +31,8 @@ const listContactController = async (req: Request, res: Response) => {
 const updateContactUserController = async (req: Request, res: Response) => {
   const userId: string = req.user.id;
   const contactId: string = req.params.id;
-  const contactData = req.body;
-  const updatedContact = await updateContactService(
+  const contactData: IContactUpdateRequest = req.body;
+  const updatedContact = await updateContactUserService(
     userId,
     contactId,
     contactData
@@ -40,4 +44,5 @@ export {
   createContactController,
   listContactsUserController,
   listContactController,
+  updateContactUserController,
 };
