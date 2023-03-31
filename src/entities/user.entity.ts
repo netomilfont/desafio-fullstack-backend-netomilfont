@@ -7,7 +7,7 @@ import {
   CreateDateColumn,
   OneToMany,
 } from "typeorm";
-import { hashSync } from "bcryptjs";
+import { getRounds, hashSync } from "bcryptjs";
 import { Contact } from "./contact.entity";
 
 @Entity("users")
@@ -33,7 +33,10 @@ class User {
   @BeforeUpdate()
   @BeforeInsert()
   hashPassword() {
-    this.password = hashSync(this.password, 10);
+    const isEncrypted = getRounds(this.password);
+    if (!isEncrypted) {
+      this.password = hashSync(this.password, 10);
+    }
   }
 
   @OneToMany(() => Contact, (contact) => contact.user)

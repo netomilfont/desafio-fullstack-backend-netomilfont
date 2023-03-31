@@ -4,8 +4,8 @@ import createSessionService from "../services/sessions/createSession.service";
 
 const createSessionController = async (req: Request, res: Response) => {
   const loginData: IUserLogin = req.body;
-  const token = await createSessionService(loginData);
-  return res.json({ token });
+  const responseLogin = await createSessionService(loginData);
+  return res.json(responseLogin);
 };
 
 export { createSessionController };

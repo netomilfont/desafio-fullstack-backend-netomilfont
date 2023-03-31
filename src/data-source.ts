@@ -6,6 +6,7 @@ import { createColumnCreatedAt1679779505675 } from "./migrations/1679779505675-c
 import { createColumnCreatedAt1679789035842 } from "./migrations/1679789035842-createColumnCreatedAt";
 import { Contact } from "./entities/contact.entity";
 import { createContact1679867205368 } from "./migrations/1679867205368-createContact";
+import { fixDeleteCascade1680241960816 } from "./migrations/1680241960816-fixDeleteCascade";
 
 const AppDataSource = new DataSource({
   type: "postgres",
@@ -22,6 +23,7 @@ const AppDataSource = new DataSource({
     createColumnCreatedAt1679779505675,
     createColumnCreatedAt1679789035842,
     createContact1679867205368,
+    fixDeleteCascade1680241960816,
   ],
 });
 

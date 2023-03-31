@@ -8,7 +8,10 @@ import {
 } from "../controllers/contacts.controllers";
 import ensureAuthMiddleware from "../middlewares/ensureAuth.middleware";
 import ensureDataIsValidMiddleware from "../middlewares/ensureDataisValid.middleware";
-import { contactSerializer } from "../schemas/contacts.schemas";
+import {
+  contactSerializerRequest,
+  contactSerializer,
+} from "../schemas/contacts.schemas";
 
 const contactRoutes = Router();
 
@@ -23,7 +26,7 @@ contactRoutes.get("/:id", ensureAuthMiddleware, listContactController);
 contactRoutes.patch(
   "/:id",
   ensureAuthMiddleware,
-  ensureDataIsValidMiddleware(contactSerializer),
+  ensureDataIsValidMiddleware(contactSerializerRequest),
   updateContactUserController
 );
 contactRoutes.delete("/:id", ensureAuthMiddleware, deleteContactUserController);
