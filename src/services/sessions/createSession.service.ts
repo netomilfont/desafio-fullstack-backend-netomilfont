@@ -9,7 +9,7 @@ import "dotenv/config";
 const createSessionService = async ({
   email,
   password,
-}: IUserLogin): Promise<string> => {
+}: IUserLogin): Promise<any> => {
   const userRepository = AppDataSource.getRepository(User);
 
   const user = await userRepository.findOneBy({
@@ -31,7 +31,12 @@ const createSessionService = async ({
     subject: user.id,
   });
 
-  return token;
+  const responseLogin = {
+    token: token,
+    userId: user.id,
+  };
+
+  return responseLogin;
 };
 
 export default createSessionService;
